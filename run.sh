@@ -48,8 +48,11 @@ mkdir -p $LOG_PATH
 
 cmd="$cmd --logpath $LOG_PATH/mongodb.log"
 
+# Output the current configuration
+echo $cmd
+
 # Run MongoDB with the above-created parameters
-$cmd &
+eval $cmd &
 
 # Run in foreground
 fg
