@@ -41,20 +41,14 @@ if [ "$REPLICA_SET" != "" ]; then
     cmd="$cmd --replSet $REPLICA_SET"
 fi
 
-if [ "$MARATHON_APP_ID" != "" ]; then
-    app_name=$MARATHON_APP_ID
-else
-    app_name="/mongodb"
-fi
-
 # Set data directory
-export DATA_PATH=/data/db$app_name
+export DATA_PATH=/data/db/$REPLICA_SET
 mkdir -p $DATA_PATH
 
 cmd="$cmd --dbpath $DATA_PATH"
 
 # Set log directory
-export LOG_PATH=/data/logs$app_name
+export LOG_PATH=/data/logs/$REPLICA_SET
 mkdir -p $LOG_PATH
 
 cmd="$cmd --logpath $LOG_PATH/mongodb.log"
