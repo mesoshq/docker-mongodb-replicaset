@@ -9,11 +9,22 @@ else
     ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
 fi
 
+# Check if we receive a PORT0 from Marathon
+if [ "$PORT0" != "" ]; then
+    port=$PORT0
+else
+    # Use standard port
+    port="27017"
+fi
+
 # Configure storage engine
 cmd="mongod --storageEngine $STORAGE_ENGINE"
 
 # Configure bind ip address
 cmd="$cmd --bind_ip $ip"
+
+# Configure port
+cmd="$cmd --port $port"
 
 # Configure journaling
 if [ "$JOURNALING" == "no" ]; then
