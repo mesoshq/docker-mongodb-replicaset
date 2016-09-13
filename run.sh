@@ -53,6 +53,9 @@ mkdir -p $LOG_PATH
 
 cmd="$cmd --logpath $LOG_PATH/mongodb.log"
 
+# Output the environment for debugging purposes
+env
+
 # Output the current configuration
 echo $cmd
 
