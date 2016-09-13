@@ -42,13 +42,13 @@ if [ "$REPLICA_SET" != "" ]; then
 fi
 
 # Set data directory
-export DATA_PATH=/data/db/$REPLICA_SET
+export DATA_PATH=$MESOS_SANDBOX/data/db
 mkdir -p $DATA_PATH
 
 cmd="$cmd --dbpath $DATA_PATH"
 
 # Set log directory
-export LOG_PATH=/data/logs/$REPLICA_SET
+export LOG_PATH=$MESOS_SANDBOX/data/logs
 mkdir -p $LOG_PATH
 
 cmd="$cmd --logpath $LOG_PATH/mongodb.log"
