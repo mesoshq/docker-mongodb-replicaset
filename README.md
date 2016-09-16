@@ -15,21 +15,12 @@ The recommended minimal ReplicaSet sizes can be found in the [MongoDB docs](http
 
 ### Persistence
 
-By default, the Docker image will only persist its data in the container itself. For production usages, this is probably not the desired behavior. To overcome this, it's recommended to 
-[mount a host directory as container volume](https://docs.docker.com/userguide/dockervolumes/#mount-a-host-directory-as-a-data-volume).
+By default, this image will be configured by the framework scheduler to use [local persistent volumes](http://mesos.apache.org/documentation/latest/persistent-volume/). Therefore, the Mesos agent will create a relative path (defined by `CONTAINER_PATH`) within the Mesos sandbox (`MESOS_SANDBOX`) of the respective task. 
 
-Using plain Docker, this could be done via adding an additional parameter like this: 
-  
-    -v /host/directory:/container/directory
-    
-The host directory `/host/directory` will now be available as `/container/directory` in the container. To do this via Marathon, one has to add the `volumes` property to the application JSON as described in the [Marathon docs](https://mesosphere.github.io/marathon/docs/native-docker.html):
+The `run.sh` entrypoint script will then create the following folders:
 
-The default container paths are the following
-
-* Data directory: `/data/db`
-* Logs directory: `/data/logs`
-
-The `run.sh` script will create subfolders for the `MARATHON_APP_ID` set by Marathon during runtime, meaning that each application will have separate data and log folders. This results in the capacity to run multiple MongoDB ReplicaSets on Marathon.
+* Data directory: `$MESOS_SANDBOX/$CONTAINER_PATH/db`
+* Logs directory: `$MESOS_SANDBOX/$CONTAINER_PATH/logs`
 
 ## Overall options
 
