@@ -2,7 +2,7 @@
 
 set -m
 
-if [ "$ADD_DELAY" != "" ]; then
+if [ "$APP_NAME" == "" ]; then
     echo "No application name (APP_NAME) env var specified. Exiting!"
     exit 1
 fi
