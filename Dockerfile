@@ -23,6 +23,9 @@ ENV JOURNALING yes
 # Add run script for MongoDB
 ADD run.sh /usr/local/bin/run.sh
 
+# Add init script for MongoDB
+ADD init.sh /usr/local/bin/init.sh
+
 EXPOSE 27017
 
 CMD ["/usr/local/bin/run.sh"]
