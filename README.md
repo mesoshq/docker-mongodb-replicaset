@@ -27,9 +27,10 @@ The `run.sh` entrypoint script will then create the following folders:
 Here's the list of configuration options:
 
  * `REPLICA_SET`: The name of the ReplicaSet
- * `STORAGE_ENGINE`: Is `wiredTiger` by default, can be `MMAPv1` as well.
- * `JOURNALING`: Is set to `yes` by default. Use `no` to disable.
- * `OPLOG_SIZE`: The size of the OpLog. 
+ * `STORAGE_ENGINE`: Is `wiredTiger` by default, can be `MMAPv1` as well. Optional.
+ * `JOURNALING`: Is set to `yes` by default. Use `no` to disable. Optional.
+ * `OPLOG_SIZE`: The size of the OpLog. Optional.
+ * `CONTAINER_PATH`: The relative path under the `$MESOS_SANDBOX` where the data should be stored. Optional, default is `data`.
 
 ## Service Discovery
 
