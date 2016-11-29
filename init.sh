@@ -23,12 +23,15 @@ IFS=',' read -ra ENDPOINTS <<< "$MONGODB_ENDPOINTS"
 echo "Using ${ENDPOINTS[0]} to initialize the ReplicaSet!"
 
 # Connect to the first endpoint and initilize the ReplicaSet
-mongo ${ENDPOINTS[0]} --eval "printjson(rs.initialize())"
+mongo ${ENDPOINTS[0]} --eval "printjson(rs.initiate())"
+
+# Sleep for 5 seconds
+sleep 5
 
 # Process the other nodes -> add to ReplicaSet
 for endpoint in "${ENDPOINTS[@]:1}"; do
     echo "Adding endpoint $endpoint to the ReplicaSet"
-    mongo $endpoint --eval "rs.add('$endpoint')"
+    mongo ${ENDPOINTS[0]} --eval "rs.add('$endpoint')"
     sleep $add_delay
 done
 
